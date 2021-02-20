@@ -1,7 +1,6 @@
 package ru.dstu.lab11.servlets;
 
 import ru.dstu.lab11.entities.Student;
-import ru.dstu.lab11.models.StudentModel;
 import ru.dstu.lab11.utils.FileUtil;
 
 import javax.servlet.RequestDispatcher;
@@ -16,6 +15,7 @@ public class AddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/add.jsp");
+
         requestDispatcher.forward(req, resp);
     }
 
@@ -28,8 +28,6 @@ public class AddServlet extends HttpServlet {
         String subject = req.getParameter("subject");
         String mark = req.getParameter("mark");
         Student student = new Student(name, surname, middleName, subject, mark);
-        StudentModel model = StudentModel.getInstance();
-        model.add(student);
         fileUtil.writeStudent(student);
         req.setAttribute("studentName", name);
         doGet(req, resp);

@@ -5,7 +5,7 @@
   Time: 16:22
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head>
     <title>Добавить нового студента</title>
@@ -18,6 +18,7 @@
 
 <div>
     <%
+        request.setCharacterEncoding("UTF-8");
         if (request.getAttribute("studentName") != null) {
             out.println("<p>Студент '" + request.getAttribute("studentName") + "' Добавлен!</p>");
         }
