@@ -1,7 +1,7 @@
 package ru.dstu.lab11.servlets;
 
 import ru.dstu.lab11.entities.Student;
-import ru.dstu.lab11.models.StudentModel;
+import ru.dstu.lab11.utils.FileUtil;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,9 +15,9 @@ public class ListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        StudentModel model = StudentModel.getInstance();
-        List<Student> names = model.list();
-        req.setAttribute("students", names);
+        FileUtil fileUtil = new FileUtil();
+        List<Student> students = fileUtil.getStudents();
+        req.setAttribute("students", students);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/list.jsp");
         requestDispatcher.forward(req, resp);
     }

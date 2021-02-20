@@ -2,6 +2,7 @@ package ru.dstu.lab11.servlets;
 
 import ru.dstu.lab11.entities.Student;
 import ru.dstu.lab11.models.StudentModel;
+import ru.dstu.lab11.utils.FileUtil;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +21,7 @@ public class AddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        FileUtil fileUtil = new FileUtil();
         String name = req.getParameter("name");
         String surname = req.getParameter("surname");
         String middleName = req.getParameter("middleName");
@@ -28,6 +30,7 @@ public class AddServlet extends HttpServlet {
         Student student = new Student(name, surname, middleName, subject, mark);
         StudentModel model = StudentModel.getInstance();
         model.add(student);
+        fileUtil.writeStudent(student);
         req.setAttribute("studentName", name);
         doGet(req, resp);
     }
