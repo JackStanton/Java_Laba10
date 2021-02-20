@@ -22,17 +22,29 @@
         <div>
             <h2>Студенты</h2>
         </div>
-        <%
-            List<Student> students = (List<Student>) request.getAttribute("students");
+            <%
+                List<Student> students = (List<Student>) request.getAttribute("students");
 
-            if (students != null && !students.isEmpty()) {
-                out.println("<ui>");
-                for (Student s : students) {
-                    out.println("<li>" + s + "</li>");
-                }
-                out.println("</ui>");
-            } else out.println("<p>Пусто</p>");
-        %>
+                if (students != null && !students.isEmpty()) {
+                    out.println("                <table border='1'><tr>\n" +
+                            "                    <td>Имя</td>\n" +
+                            "                    <td>Фамилия</td>\n" +
+                            "                    <td>Отчество</td>\n" +
+                            "                    <td>Предмет</td>\n" +
+                            "                    <td>Оценка</td>\n" +
+                            "                </tr>");
+                    for (Student s : students) {
+                        out.println("<tr>");
+                        out.println("<td>" + s.getName() + "</td>");
+                        out.println("<td>" + s.getSurname() + "</td>");
+                        out.println("<td>" + s.getMiddleName() + "</td>");
+                        out.println("<td>" + s.getSubject() + "</td>");
+                        out.println("<td>" + s.getMark() + "</td>");
+                        out.println("</tr>");
+                    }
+                    out.println("</table> </br>");
+                } else out.println("<p>Ничего нет</p>");
+            %>
     </div>
 </div>
 
