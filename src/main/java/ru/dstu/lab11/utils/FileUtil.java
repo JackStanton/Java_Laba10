@@ -14,7 +14,7 @@ public class FileUtil implements Serializable{
     public FileUtil() {
     }
 
-    private Student getStudent(String fileName) {
+    public Student getStudent(String fileName) {
         Student student = null;
         try {
             File file = new File(PATH+fileName);
@@ -33,10 +33,42 @@ public class FileUtil implements Serializable{
         return student;
     }
 
-    public void writeStudent(Student student) throws IOException {
+    public boolean writeStudent(Student student) throws IOException {
         String fileName = student.getSurname() + "_" +
                 student.getName() + "_" +
                 student.getMiddleName();
+        List<File> fileList = getFileList();
+        for (File tmpFile: fileList) {
+            if(fileName.equals(tmpFile.getName())){
+                Student tmpStudent = getStudent(fileName);
+                if(!checkMark(tmpStudent.getMark())){
+                    writeFile(fileName,student);
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        }
+        writeFile(fileName,student);
+        return true;
+    }
+
+    public List<File> getFileList(){
+        File dir = new File(PATH);
+        return Arrays.asList(Objects.requireNonNull(dir.listFiles()));
+    }
+
+    public List<Student> getStudents(){
+        List<File> files = getFileList();
+        List<Student> students = new ArrayList<>();
+        for (File f: files) {
+            Student student = getStudent(f.getName());
+            students.add(student);
+        }
+        return students;
+    }
+
+    private void writeFile(String fileName, Student student) throws IOException {
         File file = new File(PATH+fileName);
         FileWriter fileWriter = new FileWriter(file);
         fileWriter.write(student.getName());
@@ -53,18 +85,13 @@ public class FileUtil implements Serializable{
         fileWriter.close();
     }
 
-    public List<File> getFileList(){
-        File dir = new File(PATH);
-        return Arrays.asList(Objects.requireNonNull(dir.listFiles()));
-    }
-
-    public List<Student> getStudents(){
-        List<File> files = getFileList();
-        List<Student> students = new ArrayList<>();
-        for (File f: files) {
-            Student student = getStudent(f.getName());
-            students.add(student);
+    private boolean checkMark(String mark){
+        String[] markArray = {"3","4","5","удовлетворительно","хорошо","отлично","удовл","хор","отл","удв"};
+        for (String s: markArray) {
+            if(s.equals(mark)){
+                return true;
+            }
         }
-        return students;
+        return false;
     }
 }
