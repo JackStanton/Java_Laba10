@@ -34,7 +34,9 @@
                 }
             }
         }else{
-            out.println("<p>Невозможно изменнить данные!</p>");
+            throw new ServletException("Mandatory Parameter missing");
+
+//            out.println("<p>Невозможно изменнить данные!</p>");
         }
     }
 
@@ -82,7 +84,7 @@
                     out.println("<input type=\"text\" name=\"mark\" value=\""+mark+"\"><br />");
                 %>
             </label>
-            <button type="submit" onclick="location.href='list/'">Добавить</button>
+            <button type="submit">Добавить</button>
         </form>
     </div>
 </div>

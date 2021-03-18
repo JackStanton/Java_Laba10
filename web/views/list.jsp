@@ -15,6 +15,10 @@
             width: 50%; /* Ширина таблицы */
             border-collapse: collapse; /* Убираем двойные линии между ячейками */
         }
+        td, th {
+            padding: 3px; /* Поля вокруг содержимого таблицы */
+            border: 1px solid black; /* Параметры рамки */
+        }
         th {
             background: #c3c3c3; /* Цвет фона */
             color: #000000;  /* Цвет текста */
@@ -25,12 +29,10 @@
         }
     </style>
 </head>
-
 <body>
 <div>
     <h1>Лабораторная работа 11</h1>
 </div>
-
 <div>
     <div>
         <div>
@@ -62,7 +64,6 @@
             %>
     </div>
 </div>
-
 <div>
     <button onclick="location.href='/'">Назад</button>
 </div>
